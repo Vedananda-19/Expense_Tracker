@@ -1,6 +1,7 @@
 import React, { createContext,useState,useEffect} from "react";
 
 type Transaction = {
+    _id: string;
     amount: number;
     category: string;
     date: string;
@@ -17,9 +18,9 @@ function TxnContextProvider({children} : any){
 
     const loadTransactions = async () => {
         try{
-            const response = await fetch("/api/")
-            const data = await response.json()
-            console.log(data)
+            const response = await fetch("/api/transactions")
+            const transactions = await response.json()
+            console.log(transactions)
         }
         catch(error){
             console.log(error)

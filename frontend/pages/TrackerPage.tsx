@@ -37,7 +37,7 @@ function TrackerPage() {
 
         setTxnList([
             ...txnList,
-            { amount: Number(txnAmount), category: category, date: date },
+            {amount: Number(txnAmount), category: category, date: date },
         ]);
         console.log("Added Successfully", txnAmount, txnCategory, txnDate);
 
@@ -88,6 +88,7 @@ function TrackerPage() {
                     {txnList.map((transaction, idx) => {
                         return (
                             <li key={idx}>
+                                <p>{idx}</p>
                                 <p>{transaction.amount}</p>
                                 <p>{transaction.category}</p>
                                 <p>{transaction.date}</p>
