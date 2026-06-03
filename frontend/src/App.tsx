@@ -2,6 +2,7 @@ import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import TrackerPage from "../pages/TrackerPage"
 import AnalyticsPage from "../pages/AnalyticsPage"
 import MainLayout from "../Layouts/MainLayout"
+import TxnContextProvider from "../Context/TxnContextProvider"
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,9 @@ const router = createBrowserRouter([
 function App(){
     return(
       <>
-        <RouterProvider router={router} />
+        <TxnContextProvider>
+          <RouterProvider router={router} />
+        </TxnContextProvider>
       </>
     )
 }
