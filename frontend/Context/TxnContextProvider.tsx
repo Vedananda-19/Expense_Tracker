@@ -8,7 +8,7 @@ type Transaction = {
 };
 type TxnContextType = {
     txnList : Transaction[];
-    setTxnList : React.Dispatch<React.SetStateAction<Transaction[]>>;
+    loadTransactions : () => Promise<void>;
 }
 
 const TxnContext = createContext<TxnContextType | null>(null)
@@ -21,6 +21,7 @@ function TxnContextProvider({children} : any){
             const response = await fetch("/api/transactions")
             const transactions = await response.json()
             console.log(transactions)
+            setTxnList(transactions)
         }
         catch(error){
             console.log(error)
@@ -29,7 +30,7 @@ function TxnContextProvider({children} : any){
     useEffect(() => {loadTransactions()},[])
     
     return(
-        <TxnContext.Provider value={{txnList,setTxnList}}>
+        <TxnContext.Provider value={{txnList,loadTransactions}}>
             {children}
         </TxnContext.Provider>
     )
