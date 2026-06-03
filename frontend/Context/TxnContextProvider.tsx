@@ -1,4 +1,4 @@
-import React, { createContext,useState,useEffect} from "react";
+import { createContext,useState,useEffect} from "react";
 
 type Transaction = {
     _id: string;
@@ -11,7 +11,7 @@ type TxnContextType = {
     loadTransactions : () => Promise<void>;
 }
 
-const TxnContext = createContext<TxnContextType | null>(null)
+export const TxnContext = createContext<TxnContextType | null>(null)
 
 function TxnContextProvider({children} : any){
     const [txnList,setTxnList] = useState<Transaction[]>([])
@@ -30,9 +30,9 @@ function TxnContextProvider({children} : any){
     useEffect(() => {loadTransactions()},[])
     
     return(
-        <TxnContext.Provider value={{txnList,loadTransactions}}>
+        <TxnContext value={{txnList,loadTransactions}}>
             {children}
-        </TxnContext.Provider>
+        </TxnContext>
     )
 }
 

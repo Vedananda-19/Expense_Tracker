@@ -1,51 +1,68 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import defaultCategories from "../data/defaultCategories";
-
-type Transaction = {
-    amount: number;
-    category: string;
-    date: string;
-};
+import { TxnContext } from "../Context/TxnContextProvider";
 
 function TrackerPage() {
     const [txnAmount, setTxnAmount] = useState<string>("");
     const [txnCategory, setTxnCategory] = useState<string>("");
     const [txnDate, setTxnDate] = useState<string>("");
-    const [errorMsg,setErrorMsg] = useState<string>("");
+    const [errorMsg, setErrorMsg] = useState<string>("");
 
-    const [txnList, setTxnList] = useState<Transaction[]>(() => {
-        const stored = localStorage.getItem("txnList");
-        return stored ? JSON.parse(stored) : [];
-    });
-    const [categories,setCategories] = useState<string[]>(() => {
-        const stored = localStorage.getItem("categories")
+    const { txnList, loadTransactions } = useContext(TxnContext)!;
+
+    const [categories, setCategories] = useState<string[]>(() => {
+        const stored = localStorage.getItem("categories");
         return stored ? JSON.parse(stored) : defaultCategories;
-    })
-    useEffect(() => {localStorage.setItem("txnList",JSON.stringify(txnList))},[txnList])
-    useEffect(() => {localStorage.setItem("categories",JSON.stringify(categories))},[categories])
+    });
+    useEffect(() => {
+        localStorage.setItem("categories", JSON.stringify(categories));
+    }, [categories]);
 
-    const addTransaction = (e: React.SubmitEvent) => {
+    const addTransaction = async (e: React.SubmitEvent) => {
         e.preventDefault();
-
-        const category = txnCategory.trim()
+        const category = txnCategory.trim();
         const date = txnDate ? txnDate : new Date().toISOString().split("T")[0];
-        if (new Date(date) > new Date()){
-            setErrorMsg("Invalid Date")
-            return
+        if (new Date(date) > new Date()) {
+            setErrorMsg("Invalid Date");
+            return;
         }
-        categories.includes(txnCategory) || setCategories([...categories,txnCategory])
+        categories.includes(txnCategory) ||
+            setCategories([...categories, txnCategory]);
 
-        setTxnList([
-            ...txnList,
-            {amount: Number(txnAmount), category: category, date: date },
-        ]);
-        console.log("Added Successfully", txnAmount, txnCategory, txnDate);
-
-        setErrorMsg("");
-        setTxnAmount("");
-        setTxnCategory("");
-        setTxnDate("");
+        try {
+            const response = await fetch("/api/transactions", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({
+                    amount: txnAmount,
+                    category: category,
+                    date: date,
+                }),
+            });
+            const data = await response.json();
+            console.log(data);
+            loadTransactions();
+        } catch (error) {
+            console.log(error);
+            setErrorMsg("An Error Occured");
+        } finally {
+            setErrorMsg("");
+            setTxnAmount("");
+            setTxnCategory("");
+            setTxnDate("");
+        }
     };
+    const deleteTransaction = async (txnId:string) => {
+        try{
+            const response = await fetch("/api/transactions",{method:"DELETE",headers:{"Content-type":"application/json"},body:JSON.stringify(txnId)})
+            const data = await response.json()
+            console.log(data)
+            loadTransactions()
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
     return (
         <div>
             <h1>Transactions</h1>
@@ -72,33 +89,44 @@ function TrackerPage() {
                 <button type="submit">Add</button>
                 {errorMsg && <p>{errorMsg}</p>}
             </form>
-            {categories.length>0 && (
+            {categories.length > 0 && (
                 <div>
-                    {
-                        categories.map((category,idx) => {
-                            return(
-                                <button onClick={() => setTxnCategory(category)} key={idx}>{category}</button>
-                            )
-                        })
-                    }
+                    {categories.map((category, idx) => {
+                        return (
+                            <button
+                                onClick={() => setTxnCategory(category)}
+                                key={idx}
+                            >
+                                {category}
+                            </button>
+                        );
+                    })}
                 </div>
             )}
-            {txnList.length>0 ? 
+            {txnList.length > 0 ? (
                 <div>
                     {txnList.map((transaction, idx) => {
                         return (
-                            <li key={idx}>
-                                <p>{idx}</p>
+                            <li key={transaction["_id"]}>
+                                <p>{idx + 1}</p>
                                 <p>{transaction.amount}</p>
                                 <p>{transaction.category}</p>
                                 <p>{transaction.date}</p>
+                                <button onClick={() => {}}>Edit</button>
+                                <button
+                                    onClick={() =>
+                                        deleteTransaction(transaction["_id"])
+                                    }
+                                >
+                                    Delete
+                                </button>
                             </li>
                         );
                     })}
-                </div> : (
-                    <h3>No Transactions were Added</h3>
-                )
-            }
+                </div>
+            ) : (
+                <h3>No Transactions were Added</h3>
+            )}
         </div>
     );
 }
