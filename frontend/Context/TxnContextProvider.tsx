@@ -1,4 +1,4 @@
-import { createContext,useState,useEffect} from "react";
+import { createContext,useState,useEffect, type ReactElement} from "react";
 
 type Transaction = {
     _id: string;
@@ -11,9 +11,9 @@ type TxnContextType = {
     loadTransactions : () => Promise<void>;
 }
 
-export const TxnContext = createContext<TxnContextType | null>(null)
+const TxnContext = createContext<TxnContextType | null>(null)
 
-function TxnContextProvider({children} : any){
+export function TxnContextProvider({children} : {children : ReactElement}){
     const [txnList,setTxnList] = useState<Transaction[]>([])
 
     const loadTransactions = async () => {
@@ -36,4 +36,4 @@ function TxnContextProvider({children} : any){
     )
 }
 
-export default TxnContextProvider
+export default TxnContext
