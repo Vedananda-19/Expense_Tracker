@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import TxnContext from "../Context/TxnContextProvider";
 import defaultCategories from "../data/defaultCategories";
+import styles from "../pages/TrackerPage.module.css"
 
 type Transaction = {
     _id?: string;
@@ -74,7 +75,7 @@ function TransactionForm({ mode, txnData, setSelectedTxnId }: propsType) {
         }
     };
     return (
-        <form onSubmit={(e) => addTransaction(e, mode, txnData && txnData["_id"])}>
+        <form className={styles.form} onSubmit={(e) => addTransaction(e, mode, txnData && txnData["_id"])}>
             <input
                 onChange={(e) => setTxnAmount(e.target.value)}
                 type="number"
@@ -95,9 +96,9 @@ function TransactionForm({ mode, txnData, setSelectedTxnId }: propsType) {
                 value={txnDate}
             />
             <button type="submit">{mode === "add" ? "Add" : "Save"}</button>
-            {errorMsg && <p>{errorMsg}</p>}
+            {errorMsg && <p className={styles.error}>{errorMsg}</p>}
             {categories.length > 0 && (
-                <div>
+                <div className={styles.categories}>
                     {categories.map((category, idx) => {
                         return (
                             <button

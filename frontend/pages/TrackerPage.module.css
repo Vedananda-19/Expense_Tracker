@@ -1,0 +1,138 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #222831;
+    color: #EEEEEE;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.transaction {
+    display: grid;
+    grid-template-columns: 20px 100px 100px 1fr auto auto;
+    align-items: center;
+
+    gap: 12px;
+    padding: 12px;
+
+    background: #2d3440;
+    /* border: 1px solid #00ADB530; */
+    border-radius: 10px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+.transaction p {
+    color: #EEEEEE;
+}
+
+.transaction button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    transition: opacity 0.2s;
+}
+
+.transaction button:hover {
+    opacity: 0.8;
+}
+
+.transaction button:first-of-type {
+    background: #00ADB5;
+    color: #222831;
+}
+
+.transaction button:last-of-type {
+    background: #d9534f;
+    color: white;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    padding: 16px;
+    margin: 16px 0;
+
+    background: #2d3440;
+    /* border: 1px solid #00ADB530; */
+    border-radius: 12px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+.form input {
+    padding: 10px;
+
+    background: #222831;
+    color: #EEEEEE;
+
+    border: 1px solid #333333;
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+.form input:focus {
+    outline: none;
+    border-color: #00ADB5;
+}
+
+.form input::placeholder {
+    color: #AAAAAA;
+}
+
+.form button[type="submit"] {
+    padding: 10px;
+
+    background: #00ADB5;
+    color: #222831;
+
+    border: none;
+    border-radius: 6px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form button[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+.error {
+    color: #ff6b6b;
+    font-size: 14px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.categories button {
+    padding: 6px 10px;
+
+    background: #222831;
+    color: #EEEEEE;
+
+    border: 1px solid #333333;
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+.categories button:hover {
+    background: #00ADB520;
+    border-color: #00ADB5;
+}
