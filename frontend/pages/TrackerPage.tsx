@@ -8,7 +8,7 @@ function TrackerPage() {
     const { txnList, loadTransactions } = useContext(TxnContext)!;
     const [selectedTxnId,setSelectedTxnId] = useState("")
 
-    const deleteTransaction = async (txnId:string) => {
+    const deleteTransaction = async (txnId:string) => { 
         try{
             const response = await fetch("/api/transactions",{method:"DELETE",headers:{"Content-type":"application/json"},body:JSON.stringify(txnId)})
             const data = await response.json()
@@ -21,8 +21,9 @@ function TrackerPage() {
     }
     return (
         <div className="themeBackground">
+            <h1>Transactions</h1>
             <div className={styles.container}>
-                <h1>Transactions</h1>
+                
 
                 <TransactionForm mode="add"/>
 

@@ -1,9 +1,9 @@
 .container {
     max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
     background-color: #222831;
-    color: #EEEEEE;
+}
+h1{
+    padding-top: 10px;
 }
 
 .list {
@@ -16,7 +16,7 @@
 
 .transaction {
     display: grid;
-    grid-template-columns: 20px 100px 100px 1fr auto auto;
+    grid-template-columns: minmax(20px,40px) minmax(70px,140px) minmax(100px,1fr) minmax(80px,140px) auto auto;
     align-items: center;
 
     gap: 12px;
