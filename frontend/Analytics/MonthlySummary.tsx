@@ -2,13 +2,19 @@ import styles from "./MonthlySummary.module.css";
 import {useState,useContext} from "react"
 import TxnContext from "../Context/TxnContextProvider";
 import { monthData } from "../data/calendarData";
+import DateFilter from "../Components/DateFilter";
 
+type Transaction = {
+    _id: string;
+    amount: number;
+    category: string;
+    date: string;
+};
 
 function MonthlySummary() {
     const [month,setMonth] = useState<number>(new Date().getMonth()+1)
-    const {findByDate,findTotal} = useContext(TxnContext)!
-    const monthTxns = findByDate({month:month})
-    const monthsList = Object.values(monthData);
+    const {findTotal} = useContext(TxnContext)!
+    const [monthTxns,setMonthTxns] = useState<Transaction[]>([])
 
     const transactionCount = monthTxns.length
     const totalSpent = findTotal(monthTxns)
@@ -16,25 +22,7 @@ function MonthlySummary() {
 
     return (
         <div>
-            <div>
-                <label className={styles.filterLabel}>Select Month:</label>
-                <select
-                    className={styles.filterSelect}
-                    value={month}
-                    onChange={(e) => {setMonth(Number(e.target.value))}}
-                >
-                    <option key={-1} value={0}>
-                        All
-                    </option>
-                    {monthsList.map((month, idx) => {
-                        return (
-                            <option key={idx} value={idx + 1}>
-                                {month}
-                            </option>
-                        );
-                    })}
-                </select>
-            </div>
+            <DateFilter setList={setMonthTxns} isDate={false} isOnlyMonth={true}/>
             <div className={styles.summaryCard}>
                 <div className={styles.header}>
                     <h3 className={styles.title}>Monthly Summary</h3>
