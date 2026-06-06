@@ -6,7 +6,6 @@ import {
     Legend,
     ResponsiveContainer,
 } from "recharts";
-import styles from "../pages/AnalyticsPage.module.css"
 
 type CategorySpending = {
     category: string;
@@ -33,10 +32,14 @@ function CategoryPieChart({
 }) {
     console.log(categorySpendings)
     return (
-        <ResponsiveContainer width="100%" height="85%">
+        <ResponsiveContainer width="100%" height="80%">
             <PieChart>
                 <Pie
-                    data={categorySpendings}
+                    data={
+                        categorySpendings.length > 0
+                        ? categorySpendings
+                        : [{ category: "No Data", amount: 1 }]
+                    }
                     dataKey="amount"
                     nameKey="category"
                     cx="50%"
@@ -63,7 +66,7 @@ function CategoryPieChart({
                     ]}
                 />
 
-                <Legend />
+                {categorySpendings.length > 0 && <Legend />}
             </PieChart>
         </ResponsiveContainer>
     );

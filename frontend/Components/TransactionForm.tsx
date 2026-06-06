@@ -42,9 +42,10 @@ function TransactionForm({ mode, txnData, setSelectedTxnId }: propsType) {
         setErrorMsg("");
         setSelectedTxnId && setSelectedTxnId("")
     };
-    const addTransaction = async (e: React.SubmitEvent, mode: string, txnId: string="") => {
+    const handleSubmit = async (e: React.SubmitEvent, mode: string, txnId: string="") => {
         e.preventDefault();
-        const category = txnCategory.trim();
+        const cat = txnCategory.trim()
+        const category = (cat)[0].toUpperCase()+cat.slice(1);
         const date = txnDate ? txnDate : new Date().toISOString().split("T")[0];
         if (new Date(date) > new Date()) {
             setErrorMsg("Invalid Date");
@@ -75,7 +76,7 @@ function TransactionForm({ mode, txnData, setSelectedTxnId }: propsType) {
         }
     };
     return (
-        <form className={styles.form} onSubmit={(e) => addTransaction(e, mode, txnData && txnData["_id"])}>
+        <form className={styles.form} onSubmit={(e) => handleSubmit(e, mode, txnData && txnData["_id"])}>
             <input
                 onChange={(e) => setTxnAmount(e.target.value)}
                 type="number"

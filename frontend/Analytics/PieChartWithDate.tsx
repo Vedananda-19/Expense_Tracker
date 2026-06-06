@@ -34,8 +34,9 @@ function PieChartWithDate() {
                     <select
                         className={styles.filterSelect}
                         value={chartYear}
-                        onChange={(e) => setChartYear(Number(e.target.value))}
+                        onChange={(e) => {setChartYear(Number(e.target.value));setChartDay(0)}}
                     >
+                        <option key={-1}>All</option>
                         {yearsList.map((year, idx) => {
                             return (
                                 <option key={idx} value={year}>
@@ -79,8 +80,9 @@ function PieChartWithDate() {
                         })}
                     </select>
                 </div>
-                <div className={styles.pieChartContainer}>
-                        <CategoryPieChart categorySpendings={chartData}/>
+                <div className={styles.pieChartContainer}>        
+                    <CategoryPieChart categorySpendings={chartData}/>
+                    {chartData.length===0 && <h4>No transactions were made on the day</h4>}
                 </div>
             </div>
         </div>

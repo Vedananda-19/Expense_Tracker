@@ -1,8 +1,9 @@
 import styles from "./AnalyticsPage.module.css";
 import { useContext, useMemo } from "react";
 import TxnContext from "../Context/TxnContextProvider";
-import MonthlySpendingChart from "../Graphs/MonthlyspendingChart";
-import PieChartWithDate from "../Graphs/PieChartWithDate"
+import MonthlySpendingChart from "../Analytics/MonthlyspendingChart";
+import PieChartWithDate from "../Analytics/PieChartWithDate"
+import MonthlySummary from "../Analytics/MonthlySummary"
 
 function AnalyticsPage() {
     const { txnList, findMonthlySpendings } = useContext(TxnContext)!;
@@ -15,6 +16,7 @@ function AnalyticsPage() {
                 <MonthlySpendingChart monthlySpendings={monthlySpendings} />
                 <PieChartWithDate />
                 <MonthlySpendingChart monthlySpendings={monthlySpendings} />
+                <MonthlySummary/>
             </div>
         </div>
     );
