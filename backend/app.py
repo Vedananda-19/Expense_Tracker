@@ -2,8 +2,9 @@ from flask import Flask,request,jsonify
 from flask_cors import CORS
 from pymongo import MongoClient,DESCENDING
 from bson import ObjectId
+import os
 
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient(os.getenv("MONGO_URI"))
 txns = client["expense_tracker"]["transactions"]
 
 app = Flask(__name__)
