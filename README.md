@@ -1,6 +1,6 @@
 # Expense Tracker
 
-A full-stack web expense management application that helps users track, organize, and analyze their financial transactions. Users can add, edit, delete, and filter transactions while gaining insights into their spending habits through interactive charts and summary statistics.
+A basic web expense management application that helps users track, organize, and analyze their financial transactions. Users can add, edit, delete, and filter transactions while gaining insights into their spending habits through interactive charts and summary statistics.
 
 ## Features
 
