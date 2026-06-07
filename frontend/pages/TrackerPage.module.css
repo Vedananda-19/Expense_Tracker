@@ -1,8 +1,10 @@
 .container {
     max-width: 900px;
+    width:100%;
     background-color: #222831;
     display:flex;
     flex-direction: column;
+    margin:10px;
 }
 h1{
     padding-top: 10px;
@@ -137,4 +139,16 @@ h1{
 .categories button:hover {
     background: #00ADB520;
     border-color: #00ADB5;
+}
+
+@media (max-width: 600px) {
+    .transaction {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .transaction button {
+        width: 100%;
+    }
 }
