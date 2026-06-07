@@ -55,7 +55,7 @@ function TransactionForm({ mode, txnData, setSelectedTxnId}: propsType) {
             setCategories([...categories, txnCategory]);
 
         try {
-            const response = await fetch("/api/transactions", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/transactions`, {
                 method: mode === "add" ? "POST" : "PATCH",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({

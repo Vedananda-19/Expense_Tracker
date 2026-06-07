@@ -34,7 +34,7 @@ export function TxnContextProvider({children} : {children : ReactElement}){
     const loadTransactions = async () => {
         setIsLoading(true)
         try{
-            const response = await fetch("/api/transactions")
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/transactions`)
             const transactions = await response.json()
             console.log(transactions)
             setTxnList(transactions)

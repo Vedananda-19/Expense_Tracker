@@ -19,7 +19,7 @@ function TrackerPage() {
 
     const deleteTransaction = async (txnId: string) => {
         try {
-            const response = await fetch("/api/transactions", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/transactions`, {
                 method: "DELETE",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify(txnId),
