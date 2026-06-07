@@ -78,7 +78,7 @@ Expense-Tracker
 
 ![Analytics Page](./screenshots/AnalyticsPage.png)
 
-*Provides visual insights into spending patterns through charts, summaries, and financial statistics.*
+*Provides visual insights into spending patterns through charts, summaries, and financial statistics , built using the recharts library.*
 
 ---
 
