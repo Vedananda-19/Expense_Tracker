@@ -22,7 +22,7 @@ function MonthlySpendingChart({
     console.log(monthlySpendings);
     return (
         <div className={styles.chartContainer}>
-            <h3 className={styles.chartHeading}>Monthly Spendings</h3>
+            <h3 className={styles.monthlyChartHeading}>Monthly Spendings</h3>
 
             <ResponsiveContainer width="100%" height="85%">
                 <LineChart

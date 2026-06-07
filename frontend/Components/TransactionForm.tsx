@@ -15,7 +15,7 @@ type propsType = {
     setSelectedTxnId?: React.Dispatch<React.SetStateAction<string>>
 };
 
-function TransactionForm({ mode, txnData, setSelectedTxnId }: propsType) {
+function TransactionForm({ mode, txnData, setSelectedTxnId}: propsType) {
     const [txnAmount, setTxnAmount] = useState<string>(
         txnData ? String(txnData.amount) : "",
     );

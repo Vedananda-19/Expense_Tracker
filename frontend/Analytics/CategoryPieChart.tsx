@@ -32,7 +32,7 @@ function CategoryPieChart({
 }) {
     console.log(categorySpendings)
     return (
-        <ResponsiveContainer width="100%" height="80%">
+        <ResponsiveContainer width="100%" height="90%">
             <PieChart>
                 <Pie
                     data={

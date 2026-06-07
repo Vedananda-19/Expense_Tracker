@@ -9,6 +9,7 @@ type Transaction = {
 };
 type TxnContextType = {
     txnList : Transaction[];
+    isLoading : boolean
     loadTransactions : () => Promise<void>;
     findTotal : (transactions:Transaction[]) => number;
     findByDate({ year, month, day }: dateType): Transaction[]
@@ -28,8 +29,10 @@ const TxnContext = createContext<TxnContextType | null>(null)
 
 export function TxnContextProvider({children} : {children : ReactElement}){
     const [txnList,setTxnList] = useState<Transaction[]>([])
+    const [isLoading,setIsLoading] = useState<boolean>(true)
 
     const loadTransactions = async () => {
+        setIsLoading(true)
         try{
             const response = await fetch("/api/transactions")
             const transactions = await response.json()
@@ -38,6 +41,9 @@ export function TxnContextProvider({children} : {children : ReactElement}){
         }
         catch(error){
             console.log(error)
+        }
+        finally{
+            setIsLoading(false)
         }
     }
     useEffect(() => {loadTransactions()},[])
@@ -87,7 +93,7 @@ export function TxnContextProvider({children} : {children : ReactElement}){
     }
     
     return(
-        <TxnContext value={{txnList,loadTransactions,findTotal,findByDate,findMonthlySpendings,findCategorySpendings}}>
+        <TxnContext value={{txnList,isLoading,loadTransactions,findTotal,findByDate,findMonthlySpendings,findCategorySpendings}}>
             {children}
         </TxnContext>
     )

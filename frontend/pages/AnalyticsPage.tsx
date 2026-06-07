@@ -15,7 +15,6 @@ function AnalyticsPage() {
             <div className={styles.container}>
                 <MonthlySpendingChart monthlySpendings={monthlySpendings} />
                 <PieChartWithDate />
-                <MonthlySpendingChart monthlySpendings={monthlySpendings} />
                 <MonthlySummary/>
             </div>
         </div>
